@@ -18,7 +18,8 @@ jobs:
     
     - name: Check PR title. If it contains SKIP, skip this CI test
       run: |
-        if [[ ${{ github.event.pull_request.title }} =~ ^SKIP ]]; then
+        title="${{ github.event.pull_request.title }}"
+        if [[ $title =~ ^SKIP ]]; then         
         echo "PR title starts with 'SKIP'"
         exit 0
         else
