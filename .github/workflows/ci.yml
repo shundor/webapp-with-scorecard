@@ -5,9 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
-env:
-  TITLE: ${{ github.event.pull_request.title }}
+    
 
 # Declare default permissions as read only.
 permissions: read-all
@@ -20,7 +18,7 @@ jobs:
     
     - name: Check PR title. If it contains SKIP, skip this CI test
       run: |
-        if [[ $TITLE =~ ^SKIP ]]; then
+        if [[ ${{ github.event.pull_request.title }} =~ ^SKIP ]]; then
         echo "PR title starts with 'SKIP'"
         exit 0
         else
