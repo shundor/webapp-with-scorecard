@@ -12,13 +12,16 @@ permissions: read-all
 
 jobs:
 
+env:
+  TITLE: ${{ github.event.pull_request.title }}
+
   build:
     runs-on: ubuntu-latest
     steps:
     
     - name: Check PR title. If it contains SKIP, skip this CI test
       run: |
-        if [[ title="${{ github.event.pull_request.title }}" ]]; then
+        if [[ $TITLE =~ ^SKIP ]]; then
         echo "PR title starts with 'SKIP'"
         exit 0
         else
