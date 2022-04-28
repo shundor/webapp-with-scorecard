@@ -5,14 +5,10 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch:
 
 # Declare default permissions as read only.
 permissions: read-all
 
-env:
-  TITLE: ${{ github.event.pull_request.title }}
-  
 jobs:
 
   build:
@@ -21,7 +17,7 @@ jobs:
     
     - name: Check PR title. If it contains SKIP, skip this CI test
       run: |
-        if [[ $TITLE =~ ^SKIP ]]; then         
+        if [[ title="${{ github.event.pull_request.title }}" ]]; then
         echo "PR title starts with 'SKIP'"
         exit 0
         else
